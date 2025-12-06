@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - PURPL3</title>
+    <title>Admin Panel - Banca Mov</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,23 +23,27 @@
 
     <div class="admin-container animate-up">
         
-        <h1 style="margin-bottom: 20px; color: var(--dark);">Privire de ansamblu</h1>
+        <h1 style="margin-bottom: 30px; color: var(--dark);">Privire de ansamblu</h1>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Total Clienți</h3>
                 <div class="value" id="total-clienti">0</div>
             </div>
+            
             <div class="stat-card">
-                <h3>Fonduri Totale (Est.)</h3>
-                <div class="value" id="total-fonduri">0.00 RON</div>
+                <h3>Fonduri Totale</h3>
+                <div class="value" id="total-fonduri">0.00 RON</div> 
+            </div>
+            
             <div class="stat-card">
                 <h3>Status Server</h3>
                 <div class="value" style="color: #00b894; font-size: 1.5rem;">● Online</div>
             </div>
-        </div>
-
-        <h2 style="margin-bottom: 15px; font-size: 1.2rem; color: #636e72;">Baza de Date Utilizatori</h2>
+        </div> 
+        <h2 style="margin-bottom: 20px; font-size: 1.4rem; color: #2d3436; border-left: 5px solid var(--primary); padding-left: 15px;">
+            Baza de Date Utilizatori
+        </h2>
         
         <div class="table-container">
             <table class="modern-table">
@@ -62,9 +66,7 @@
 
     <script src="app.js"></script>
     <script>
-        // Pornim logica la incarcare
         window.onload = function() {
-            // Verificam daca userul e admin
             if(localStorage.getItem('user_role') !== 'admin') {
                 window.location.href = 'index.html';
             }

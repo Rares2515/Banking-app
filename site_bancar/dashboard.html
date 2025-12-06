@@ -51,17 +51,17 @@
             </div>
 
             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
-                    <i class="fas fa-arrow-down" style="color: #00b894; margin-bottom: 5px;"></i>
-                    <p style="font-size: 0.8rem;">Încasări</p>
-                    <h4>+ 2,500</h4>
-                </div>
-                <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
-                    <i class="fas fa-arrow-up" style="color: #d63031; margin-bottom: 5px;"></i>
-                    <p style="font-size: 0.8rem;">Cheltuieli</p>
-                    <h4>- 850</h4>
-                </div>
-            </div>
+    <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
+        <i class="fas fa-arrow-down" style="color: #00b894; margin-bottom: 5px;"></i>
+        <p style="font-size: 0.8rem;">Încasări</p>
+        <h4 id="total-incasari">+ 0.00</h4> 
+    </div>
+    <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
+        <i class="fas fa-arrow-up" style="color: #d63031; margin-bottom: 5px;"></i>
+        <p style="font-size: 0.8rem;">Cheltuieli</p>
+        <h4 id="total-cheltuieli">- 0.00</h4> 
+    </div>
+</div>
         </div>
 
         <div class="right-column animate-up delay-1">
@@ -83,15 +83,12 @@
             </div>
 
             <div class="action-card" style="margin-top: 20px;">
-                <h3>Ultima Tranzacție</h3>
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                    <div>
-                        <p style="font-weight: 600;">Netflix Subscription</p>
-                        <p style="font-size: 0.8rem; color: #999;">Azi, 10:30</p>
-                    </div>
-                    <div style="color: #d63031; font-weight: bold;">- 60.00 RON</div>
-                </div>
-            </div>
+    <h3>Istoric Tranzacții</h3>
+    
+    <div id="lista-tranzactii">
+        <p style="text-align:center; color:#999; margin-top: 10px;">Se încarcă...</p>
+    </div>
+</div>
         </div>
 
     </div>
