@@ -1,19 +1,22 @@
-/* app.js - CONECTAT LA SERVER SQL */
+/* app.js - CONECTAT LA SERVER SQL (CORECTAT) */
 
 const API_URL = "http://localhost:18080/api";
 
 // --- 1. FUNCTIA DE REGISTER ---
 async function register() {
+    // Luam datele din input-uri
     const nume = document.getElementById('reg-nume').value;
     const prenume = document.getElementById('reg-prenume').value;
     const email = document.getElementById('reg-email').value;
     const pass = document.getElementById('reg-pass').value;
     const pass2 = document.getElementById('reg-pass2').value;
 
+    // Validari simple
     if(!nume || !email || !pass) { alert("Completează tot!"); return; }
     if(pass !== pass2) { alert("Parolele nu coincid!"); return; }
 
     try {
+        // CORECTAT: Am adaugat ` (backticks) in jurul URL-ului
         const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -30,7 +33,7 @@ async function register() {
         }
     } catch (e) {
         console.error(e);
-        alert("Serverul nu răspunde! Verifică dacă colegul a pornit serverul.");
+        alert("Serverul nu răspunde! Verifică dacă colegul a pornit serverul C++.");
     }
 }
 
@@ -40,6 +43,7 @@ async function login() {
     const pass = document.getElementById('login-pass').value;
 
     try {
+        // CORECTAT: Am adaugat ` (backticks)
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -77,6 +81,7 @@ async function incarcaDateAdmin() {
     if (!tabel) return;
 
     try {
+        // CORECTAT: Am adaugat ` (backticks)
         const response = await fetch(`${API_URL}/admin/users`);
         const users = await response.json();
 
@@ -84,7 +89,6 @@ async function incarcaDateAdmin() {
         tabel.innerHTML = "";
 
         users.forEach(client => {
-            // Tratare cazuri unde iban/sold sunt null (daca exista)
             const iban = client.iban ? client.iban : "Fără Cont";
             const sold = client.sold ? client.sold : 0;
 
@@ -110,19 +114,22 @@ function logout() {
 }
 
 function incarcaDateUtilizator() {
-    document.getElementById('nume-user').innerText = localStorage.getItem('user_nume');
-    document.getElementById('sold-curent').innerText = parseFloat(localStorage.getItem('user_sold')).toFixed(2);
-    document.getElementById('iban-propriu').innerText = localStorage.getItem('user_iban');
+    const numeElem = document.getElementById('nume-user');
+    if(numeElem) numeElem.innerText = localStorage.getItem('user_nume');
+
+    const soldElem = document.getElementById('sold-curent');
+    if(soldElem) soldElem.innerText = parseFloat(localStorage.getItem('user_sold')).toFixed(2);
+
+    const ibanElem = document.getElementById('iban-propriu');
+    if(ibanElem) ibanElem.innerText = localStorage.getItem('user_iban');
 }
 
-// Functia Transfer ramane vizuala momentan (sau o putem lega la SQL ulterior)
 function faTransfer() {
     const iban = document.getElementById('destinatar-iban').value;
     const suma = document.getElementById('suma-transfer').value;
     
     if(!iban || !suma) return alert("Completează datele!");
 
-    // Simulam doar vizual scaderea pana cand facem ruta de transfer in C++
     let sold = parseFloat(localStorage.getItem('user_sold'));
     let dePlata = parseFloat(suma);
 
@@ -139,12 +146,22 @@ function faTransfer() {
 // Pornire automata
 window.onload = function() {
     const path = window.location.pathname;
+    
+    // Logica pentru pagina de Admin
     if(path.includes('admin.html')) {
-        if(localStorage.getItem('user_role') !== 'admin') window.location.href = 'index.html';
-        incarcaDateAdmin();
+        if(localStorage.getItem('user_role') !== 'admin') {
+            window.location.href = 'index.html';
+        } else {
+            incarcaDateAdmin();
+        }
     }
+    
+    // Logica pentru Dashboard
     if(path.includes('dashboard.html')) {
-        if(localStorage.getItem('user_role') !== 'client') window.location.href = 'login.html';
-        incarcaDateUtilizator();
+        if(localStorage.getItem('user_role') !== 'client') {
+            window.location.href = 'login.html';
+        } else {
+            incarcaDateUtilizator();
+        }
     }
 };
