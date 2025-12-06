@@ -12,7 +12,7 @@ find_package(Crow QUIET)
 find_library(MYSQL_LIB mysqlcppconn) 
 
 # 2. Definim executabilul tău (sursa ta este main.cpp)
-add_executable(ServerApp main.cpp)
+add_executable(ServerApp app.cpp)
 
 # 3. Includem directoarele necesare (opțional, dacă compilatorul nu le vede)
 # include_directories(/usr/include/mysql-cppconn-8) # Decomentează dacă ai erori de "file not found"

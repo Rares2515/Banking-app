@@ -1,0 +1,3 @@
+/mnt/c/Users/Rares/OneDrive/Desktop/proiect banking/CMakeFiles/ServerApp.dir
+/mnt/c/Users/Rares/OneDrive/Desktop/proiect banking/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Rares/OneDrive/Desktop/proiect banking/CMakeFiles/rebuild_cache.dir

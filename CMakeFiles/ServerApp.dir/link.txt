@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/ServerApp.dir/app.cpp.o -o ServerApp  -lpthread /usr/lib/x86_64-linux-gnu/libmysqlcppconn.so 
