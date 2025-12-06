@@ -1,8 +1,7 @@
--- 1. Cream baza de date
+DROP DATABASE IF EXISTS sistem_bancar;
 CREATE DATABASE sistem_bancar;
 USE sistem_bancar;
 
--- 2. Tabelul pentru clienti
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nume VARCHAR(50) NOT NULL,
@@ -13,7 +12,6 @@ CREATE TABLE users (
     data_inregistrare DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- 3. Tabelul pentru conturi bancare
 CREATE TABLE accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -24,7 +22,6 @@ CREATE TABLE accounts (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- 4. Tabelul pentru tranzactii
 CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sursa_iban VARCHAR(34),
@@ -33,11 +30,3 @@ CREATE TABLE transactions (
     detalii VARCHAR(100),
     data_tranzactie DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
--- 5. Adaugam un client de test (ca sa avem cu ce lucra)
-INSERT INTO users (nume, prenume, email, telefon, parola_hash) 
-VALUES ('Popescu', 'Ion', 'ion@test.com', '0700123456', 'parola_secreta');
-
--- Ii dam si un cont cu bani
-INSERT INTO accounts (user_id, iban, sold, moneda, tip_pachet)
-VALUES (1, 'RO99BANC1234567890123456', 5000.00, 'RON', 'Gold');accountsusers

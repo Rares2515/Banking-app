@@ -1,9 +1,10 @@
-/* BancaServer.cpp - VERSIUNEA CU MIDDLEWARE (CORS GARANTAT) */
+/* BancaServer.cpp - VERSIUNEA STABILA (FINAL FIX) */
 #include "crow_all.h"
 #include "json.hpp"
 #include <iostream>
 #include <string>
 #include <random>
+#include <ctime> // <-- NEGRU: ADAUGAT PENTRU RAND
 
 // MySQL Headers
 #include "mysql_connection.h"
@@ -16,16 +17,11 @@
 using json = nlohmann::json;
 using namespace std;
 
-// --- AICI ESTE SECRETUL: MIDDLEWARE PENTRU CORS ---
+// --- MIDDLEWARE PENTRU CORS ---
 struct CORSMiddleware {
     struct context {};
-
-    void before_handle(crow::request& req, crow::response& res, context& ctx) {
-        // Nu facem nimic inainte
-    }
-
+    void before_handle(crow::request& req, crow::response& res, context& ctx) {}
     void after_handle(crow::request& req, crow::response& res, context& ctx) {
-        // Fortam aceste headere pe ORICE raspuns
         res.add_header("Access-Control-Allow-Origin", "*");
         res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.add_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -33,15 +29,15 @@ struct CORSMiddleware {
 };
 
 // Functie helper pentru conexiune
+// Functie helper pentru conexiune
 sql::Connection* connectDB() {
     try {
         sql::Driver* driver = get_driver_instance();
-        // ATENTIE: Verificati userul si parola (root sau admin)
-        sql::Connection* con = driver->connect("tcp://127.0.0.1:3306", "admin", "admin");
-        con->setSchema("sistem_bancar");
+        // FIX FINAL SOCKET/IP: Schimbăm 127.0.0.1 în localhost
+        sql::Connection* con = driver->connect("tcp://localhost:3306", "admin", "admin");
         return con;
     } catch (sql::SQLException &e) {
-        cout << "Eroare SQL Connection: " << e.what() << endl;
+        cout << "[EROARE FATALA] Nu ma pot conecta la MySQL: " << e.what() << endl;
         return nullptr;
     }
 }
@@ -52,60 +48,81 @@ string genereazaIBAN() {
 
 int main()
 {
-    // IMPORTANT: Activam Middleware-ul aici
+    // FIX: Initializare Rand (pentru IBAN unic la fiecare restart)
+    srand(time(0)); 
+
     crow::App<CORSMiddleware> app;
 
-    // --- RUTA SPECIALA PENTRU PREFLIGHT (OPTIONS) ---
-    // Aceasta prinde orice cerere de tip "Verificare" de la browser
-    CROW_ROUTE(app, "/api/<path>")
-    .methods(crow::HTTPMethod::OPTIONS)
+    // RUTA OPTIONS (PREFLIGHT)
+    CROW_ROUTE(app, "/api/<path>").methods(crow::HTTPMethod::OPTIONS)
     ([](const crow::request& req, crow::response& res, string path){
         res.code = 200;
-        res.end(); // Middleware-ul va adauga headerele automat
+        res.end();
     });
 
-    // --- 1. RUTA REGISTER ---
+// --- 1. RUTA REGISTER (FIX-ul FINAL pentru NULL) ---
     CROW_ROUTE(app, "/api/register").methods(crow::HTTPMethod::POST)
     ([](const crow::request& req){
         auto body = json::parse(req.body);
-        string nume = body["nume"];
-        string prenume = body["prenume"];
-        string email = body["email"];
-        string pass = body["parola"];
+        
+        // 1. Prelucrarea datelor (cu verificare de existenta)
+        // Ne asiguram ca variabilele sunt luate corect. Folosim .get<string>() pentru a fi stricti.
+        string nume = body.count("nume") ? body["nume"].get<string>() : "";
+        string prenume = body.count("prenume") ? body["prenume"].get<string>() : "";
+        string email = body.count("email") ? body["email"].get<string>() : "";
+        string pass = body.count("parola") ? body["parola"].get<string>() : "";
+        
+        // Verificare rapidă de bază
+        if (nume.empty() || email.empty() || pass.empty()) {
+            return crow::response(400, "{\"status\": \"error\", \"message\": \"Date incomplete\"}");
+        }
 
         sql::Connection* con = connectDB();
         if(!con) return crow::response(500, "Eroare conexiune SQL");
 
+        // *** FIX CRITIC: Specificăm schema pentru a evita NULL ***
+        con->setSchema("sistem_bancar"); 
+
         try {
-            sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO users(nume, prenume, email, parola_hash) VALUES(?,?,?,?)");
+            // 2. INSERT INTO users (Verificati sa fie 4 '?' pentru 4 setString)
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "INSERT INTO users(nume, prenume, email, parola_hash) VALUES(?,?,?,?)"
+            );
             pstmt->setString(1, nume);
             pstmt->setString(2, prenume);
             pstmt->setString(3, email);
-            pstmt->setString(4, pass);
+            pstmt->setString(4, pass); // 'pass' este valoarea pentru parola_hash
             pstmt->execute();
             delete pstmt;
 
+            // 3. Obtinem ID-ul nou inserat (new_id)
+
+            // 4. INSERT INTO accounts (utilizeaza new_id)
+            // ... (Restul codului de inserare in accounts care este OK)
+            
             sql::Statement* stmt = con->createStatement();
             sql::ResultSet* res_id = stmt->executeQuery("SELECT LAST_INSERT_ID() AS id");
             res_id->next();
             int new_id = res_id->getInt("id");
             delete res_id; delete stmt;
 
-            pstmt = con->prepareStatement("INSERT INTO accounts(user_id, iban, sold, tip_pachet) VALUES(?,?, 0.00, 'Standard')");
+            pstmt = con->prepareStatement(
+                "INSERT INTO accounts(user_id, iban, sold, tip_pachet) VALUES(?,?, 0.00, 'Standard')"
+            );
             pstmt->setInt(1, new_id);
             pstmt->setString(2, genereazaIBAN());
             pstmt->execute();
             delete pstmt;
             delete con;
-
-            return crow::response(200, "{\"status\": \"success\"}");
+            
+            return crow::response(200, "{\"status\": \"success\", \"message\": \"Cont creat cu succes\"}");
         } catch (sql::SQLException &e) {
-            delete con;
-            return crow::response(400, "{\"status\": \"error\", \"message\": \"Date invalide sau email duplicat\"}");
+            if (con) delete con;
+            std::cout << "[EROARE SQL REGISTER]: " << e.what() << std::endl;
+            return crow::response(400, "{\"status\": \"error\", \"message\": \"Date duplicate (Email existent) sau eroare SQL\"}");
         }
     });
-
-    // --- 2. RUTA LOGIN ---
+    // --- 2. RUTA LOGIN (FIX: setSchema adaugat) ---
     CROW_ROUTE(app, "/api/login").methods(crow::HTTPMethod::POST)
     ([](const crow::request& req){
         auto body = json::parse(req.body);
@@ -119,6 +136,9 @@ int main()
         sql::Connection* con = connectDB();
         if(!con) return crow::response(500, "Eroare conexiune SQL");
 
+        // FIX NULL: Specificăm schema aici
+        con->setSchema("sistem_bancar");
+
         try {
             sql::PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT u.id, u.nume, u.prenume, a.iban, a.sold FROM users u "
@@ -131,15 +151,11 @@ int main()
 
             json j;
             if(r->next()) {
-                j["status"] = "success";
-                j["role"] = "client";
-                j["user_id"] = r->getInt("id");
-                j["nume"] = r->getString("nume") + " " + r->getString("prenume");
-                j["iban"] = r->getString("iban");
-                j["sold"] = r->getDouble("sold");
+                j["status"] = "success"; j["role"] = "client";
+                j["user_id"] = r->getInt("id"); j["nume"] = r->getString("nume") + " " + r->getString("prenume");
+                j["iban"] = r->getString("iban"); j["sold"] = r->getDouble("sold");
             } else {
-                j["status"] = "error";
-                j["message"] = "Date greșite";
+                j["status"] = "error"; j["message"] = "Date greșite";
             }
             delete r; delete pstmt; delete con;
             return crow::response(200, j.dump());
@@ -149,28 +165,30 @@ int main()
         }
     });
 
-    // --- 3. RUTA ADMIN ---
+    // --- 3. RUTA ADMIN (FIX: setSchema adaugat) ---
     CROW_ROUTE(app, "/api/admin/users")
     ([](){
         sql::Connection* con = connectDB();
         if(!con) return crow::response(500, "Err SQL");
+
+        // FIX NULL: Specificăm schema aici
+        con->setSchema("sistem_bancar");
         
         try {
             sql::Statement* stmt = con->createStatement();
+            
+            // ATENTIE: AICI TREBUIE SA FIE "JOIN", nu "LEFT JOIN"
             sql::ResultSet* r = stmt->executeQuery(
                 "SELECT u.id, u.nume, u.prenume, u.email, u.parola_hash, a.iban, a.sold "
-                "FROM users u LEFT JOIN accounts a ON u.id = a.user_id"
+                "FROM users u JOIN accounts a ON u.id = a.user_id"
             );
 
             json lista = json::array();
             while(r->next()) {
                 json u;
-                u["id"] = r->getInt("id");
-                u["nume"] = r->getString("nume");
-                u["prenume"] = r->getString("prenume");
-                u["email"] = r->getString("email");
-                u["parola"] = r->getString("parola_hash");
-                u["iban"] = r->getString("iban");
+                u["id"] = r->getInt("id"); u["nume"] = r->getString("nume");
+                u["prenume"] = r->getString("prenume"); u["email"] = r->getString("email");
+                u["parola"] = r->getString("parola_hash"); u["iban"] = r->getString("iban");
                 u["sold"] = r->getDouble("sold");
                 lista.push_back(u);
             }
