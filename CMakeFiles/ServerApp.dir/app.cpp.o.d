@@ -862,9 +862,26 @@ CMakeFiles/ServerApp.dir/app.cpp.o: \
  /usr/include/c++/13/bits/deque.tcc /usr/include/c++/13/bits/stl_queue.h \
  /usr/include/c++/13/variant /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/this_thread_sleep.h \
- /usr/include/c++/13/optional /usr/include/mysql_driver.h \
- /usr/include/boost/scoped_ptr.hpp \
- /usr/include/boost/smart_ptr/scoped_ptr.hpp \
+ /usr/include/c++/13/optional \
+ /mnt/c/Users/Rares/OneDrive/Desktop/proiect\ banking/json.hpp \
+ /usr/include/c++/13/forward_list /usr/include/c++/13/bits/forward_list.h \
+ /usr/include/c++/13/bits/forward_list.tcc /usr/include/c++/13/valarray \
+ /usr/include/c++/13/bits/valarray_array.h \
+ /usr/include/c++/13/bits/valarray_array.tcc \
+ /usr/include/c++/13/bits/valarray_before.h \
+ /usr/include/c++/13/bits/slice_array.h \
+ /usr/include/c++/13/bits/valarray_after.h \
+ /usr/include/c++/13/bits/gslice.h \
+ /usr/include/c++/13/bits/gslice_array.h \
+ /usr/include/c++/13/bits/mask_array.h \
+ /usr/include/c++/13/bits/indirect_array.h \
+ /usr/include/mysql_connection.h /usr/include/cppconn/connection.h \
+ /usr/include/cppconn/build_config.h /usr/include/cppconn/warning.h \
+ /usr/include/cppconn/sqlstring.h /usr/include/cppconn/variant.h \
+ /usr/include/c++/13/list /usr/include/c++/13/bits/stl_list.h \
+ /usr/include/c++/13/bits/list.tcc /usr/include/cppconn/exception.h \
+ /usr/include/boost/shared_ptr.hpp \
+ /usr/include/boost/smart_ptr/shared_ptr.hpp \
  /usr/include/boost/smart_ptr/detail/requires_cxx11.hpp \
  /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/detail/select_compiler_config.hpp \
@@ -878,20 +895,6 @@ CMakeFiles/ServerApp.dir/app.cpp.o: \
  /usr/include/boost/config/helper_macros.hpp \
  /usr/include/boost/config/detail/cxx_composite.hpp \
  /usr/include/boost/config/pragma_message.hpp \
- /usr/include/boost/assert.hpp /usr/include/boost/core/checked_delete.hpp \
- /usr/include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
- /usr/include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
- /usr/include/boost/smart_ptr/detail/sp_noexcept.hpp \
- /usr/include/boost/config/workaround.hpp \
- /usr/include/boost/smart_ptr/detail/operator_bool.hpp \
- /usr/include/cppconn/driver.h /usr/include/cppconn/connection.h \
- /usr/include/cppconn/build_config.h /usr/include/cppconn/warning.h \
- /usr/include/cppconn/sqlstring.h /usr/include/cppconn/variant.h \
- /usr/include/c++/13/list /usr/include/c++/13/bits/stl_list.h \
- /usr/include/c++/13/bits/list.tcc /usr/include/cppconn/exception.h \
- /usr/include/mysql_connection.h /usr/include/cppconn/connection.h \
- /usr/include/boost/shared_ptr.hpp \
- /usr/include/boost/smart_ptr/shared_ptr.hpp \
  /usr/include/boost/smart_ptr/detail/shared_count.hpp \
  /usr/include/boost/smart_ptr/bad_weak_ptr.hpp \
  /usr/include/boost/smart_ptr/detail/sp_counted_base.hpp \
@@ -901,12 +904,18 @@ CMakeFiles/ServerApp.dir/app.cpp.o: \
  /usr/include/boost/smart_ptr/detail/sp_typeinfo_.hpp \
  /usr/include/boost/cstdint.hpp \
  /usr/include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+ /usr/include/boost/smart_ptr/detail/sp_noexcept.hpp \
+ /usr/include/boost/core/checked_delete.hpp \
  /usr/include/boost/core/addressof.hpp \
+ /usr/include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
  /usr/include/boost/throw_exception.hpp \
  /usr/include/boost/exception/exception.hpp \
  /usr/include/boost/assert/source_location.hpp \
  /usr/include/boost/current_function.hpp \
+ /usr/include/boost/config/workaround.hpp \
  /usr/include/boost/smart_ptr/detail/sp_convertible.hpp \
+ /usr/include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+ /usr/include/boost/assert.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp \
@@ -915,10 +924,16 @@ CMakeFiles/ServerApp.dir/app.cpp.o: \
  /usr/include/boost/core/detail/sp_thread_pause.hpp \
  /usr/include/boost/core/detail/sp_thread_yield.hpp \
  /usr/include/boost/core/detail/sp_thread_sleep.hpp \
+ /usr/include/boost/smart_ptr/detail/operator_bool.hpp \
  /usr/include/boost/smart_ptr/detail/local_sp_deleter.hpp \
  /usr/include/boost/smart_ptr/detail/local_counted_base.hpp \
+ /usr/include/boost/scoped_ptr.hpp \
+ /usr/include/boost/smart_ptr/scoped_ptr.hpp \
+ /usr/include/cppconn/driver.h /usr/include/cppconn/connection.h \
  /usr/include/cppconn/exception.h /usr/include/cppconn/resultset.h \
  /usr/include/cppconn/config.h /usr/include/inttypes.h \
  /usr/include/cppconn/resultset_metadata.h \
  /usr/include/cppconn/datatype.h /usr/include/cppconn/statement.h \
- /usr/include/cppconn/resultset.h
+ /usr/include/cppconn/resultset.h \
+ /usr/include/cppconn/prepared_statement.h \
+ /usr/include/cppconn/statement.h
