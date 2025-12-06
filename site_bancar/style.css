@@ -1,0 +1,595 @@
+/* style.css - MODERN BANKING DESIGN */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #6c5ce7;       /* Mov vibrant */
+    --secondary: #a29bfe;     /* Mov deschis */
+    --accent: #00cec9;        /* Turcoaz pentru detalii */
+    --dark: #2d3436;          /* Text inchis */
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- DECORATII FUNDAL (Cercurile acelea moderne) --- */
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+}
+
+.shape-1 {
+    top: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: var(--secondary);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-2 {
+    bottom: -150px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: var(--accent);
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- NAVIGATIE MODERNA --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: rgba(255, 255, 255, 0.8); /* Transparenta */
+    backdrop-filter: blur(10px); /* Efect Blur */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+/* Animatie Link-uri Navigatie */
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+/* Butonul Login din Navigatie */
+.btn-nav {
+    padding: 10px 25px;
+    background: var(--primary);
+    color: white !important;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.btn-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.5);
+    color: white !important;
+}
+
+.btn-nav::after { display: none; } /* Fara linie sub buton */
+
+/* --- HERO SECTION (Index) --- */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    padding: 0 5%;
+    text-align: center;
+}
+
+/* Animație de intrare (Fade Up) */
+.animate-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards 0.3s;
+}
+
+.animate-up.delay-1 { animation-delay: 0.5s; }
+.animate-up.delay-2 { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #2d3436, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: #636e72;
+    margin-bottom: 40px;
+}
+
+.btn-main {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+}
+
+/* --- LOGIN / REGISTER CARD (Glassmorphism) --- */
+.login-card {
+    background: var(--glass);
+    backdrop-filter: blur(16px); /* Efect sticla */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    padding: 50px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: var(--shadow);
+    text-align: left;
+    margin-top: 2rem;
+    animation: zoomIn 0.5s ease-out;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: #636e72;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    background: white;
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: #5649c0;
+    transform: translateY(-2px);
+}
+
+.login-footer a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-text h1 { font-size: 2.5rem; }
+    nav { padding: 1rem; }
+}
+
+/* --- ADMIN DASHBOARD STYLES --- */
+
+/* Containerul principal de admin - il facem mai lat */
+.admin-container {
+    max-width: 1200px; /* Mai lat decat login-ul */
+    margin: 2rem auto;
+    padding: 0 5%;
+}
+
+/* Grila de statistici (Cardurile de sus) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    font-size: 0.9rem;
+    color: #636e72;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Tabelul Modern */
+.table-container {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    overflow-x: auto; /* Scroll pe mobil */
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modern-table th {
+    text-align: left;
+    padding: 15px 20px;
+    color: #636e72;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 2px solid #f1f2f6;
+}
+
+.modern-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f2f6;
+    color: var(--dark);
+    font-size: 0.95rem;
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+.modern-table tr:hover td {
+    background-color: #f8f9fa; /* Hover effect */
+}
+
+/* Stil special pentru parola (Secret) */
+.secret-badge {
+    background: #ffeaa7;
+    color: #d63031;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Navbar Admin specific */
+.nav-admin {
+    background: var(--dark); /* Negru elegant */
+    backdrop-filter: none;
+}
+.nav-admin .logo {
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: white;
+}
+.nav-admin a { color: #b2bec3; }
+.nav-admin a:hover { color: white; }
+
+/* --- DASHBOARD STYLES --- */
+
+.dashboard-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Doua coloane pe desktop */
+    gap: 30px;
+    align-items: start;
+}
+
+/* Cardul Bancar Virtual (Design Revolut style) */
+.bank-card {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(108, 92, 231, 0.4);
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s;
+}
+
+.bank-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Efecte decorative pe card */
+.bank-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chip {
+    width: 50px;
+    height: 35px;
+    background: linear-gradient(135deg, #ffd700 0%, #f1c40f 100%);
+    border-radius: 6px;
+    position: relative;
+}
+
+.chip::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(0,0,0,0.2);
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border-radius: 4px;
+}
+
+.card-balance h4 {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.card-balance h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.iban-number {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Sectiunea de Transfer (Glass Card) */
+.action-card {
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
+}
+
+.action-card h3 {
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+/* Responsive Dashboard */
+@media (max-width: 850px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* O singura coloana pe mobil */
+    }
+}
+
+/* --- PAGINA SERVICII --- */
+
+.services-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 5% 5% 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efect hover: cardul se ridica si devine alb complet */
+.service-card:hover {
+    transform: translateY(-10px);
+    background: white;
+    box-shadow: 0 20px 40px rgba(108, 92, 231, 0.2);
+    border-color: transparent;
+}
+
+/* Iconita rotunda */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+    color: var(--dark);
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: #636e72;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* Link-ul mic "Afla mai multe" */
+.learn-more {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.3s;
+}
+
+.learn-more:hover {
+    gap: 10px;
+}
+
+/* Call to Action la final */
+.cta-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--dark-purple));
+    color: white;
+    margin-top: 50px;
+}

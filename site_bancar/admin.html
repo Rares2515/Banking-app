@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - PURPL3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2" style="top: 20%; right: -50px;"></div>
+    </div>
+
+    <nav class="nav-admin">
+        <div class="logo">ADMIN DASHBOARD</div>
+        <ul>
+            <li><a href="index.html">Vezi Site-ul</a></li>
+            <li><a href="#" onclick="logout()" class="btn-nav" style="background: #d63031;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="admin-container animate-up">
+        
+        <h1 style="margin-bottom: 20px; color: var(--dark);">Privire de ansamblu</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Clienți</h3>
+                <div class="value" id="total-clienti">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Fonduri Totale (Est.)</h3>
+                <div class="value">€ 45.2K</div> </div>
+            <div class="stat-card">
+                <h3>Status Server</h3>
+                <div class="value" style="color: #00b894; font-size: 1.5rem;">● Online</div>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: 15px; font-size: 1.2rem; color: #636e72;">Baza de Date Utilizatori</h2>
+        
+        <div class="table-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nume Client</th>
+                        <th>Email</th>
+                        <th>Parolă (Admin View)</th>
+                        <th>IBAN</th>
+                        <th>Sold Curent</th>
+                    </tr>
+                </thead>
+                <tbody id="tabel-clienti">
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Pornim logica la incarcare
+        window.onload = function() {
+            // Verificam daca userul e admin
+            if(localStorage.getItem('user_role') !== 'admin') {
+                window.location.href = 'index.html';
+            }
+            incarcaDateAdmin();
+        };
+    </script>
+</body>
+</html>

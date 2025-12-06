@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contul Meu - PURPL3</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <nav>
+        <div class="logo">PURPL3</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" onclick="logout()" class="btn-nav" style="background: #e17055;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="dashboard-container" style="margin-top: 50px;">
+        
+        <div class="left-column animate-up">
+            <h2 style="margin-bottom: 20px;">Salut, <span id="nume-user" style="color: var(--primary);">Client</span>!</h2>
+            
+            <div class="bank-card">
+                <div class="card-top">
+                    <div class="chip"></div>
+                    <i class="fas fa-wifi" style="font-size: 1.5rem; opacity: 0.7;"></i>
+                </div>
+                
+                <div class="card-balance">
+                    <h4>Sold Disponibil</h4>
+                    <h1><span id="sold-curent">0.00</span> <small style="font-size: 1rem;">RON</small></h1>
+                </div>
+
+                <div class="card-details">
+                    <div>
+                        <p style="font-size: 0.7rem; opacity: 0.7;">IBAN</p>
+                        <p id="iban-propriu" class="iban-number">RO99...</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.7rem; opacity: 0.7;">VALID THRU</p>
+                        <p>12/28</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
+                    <i class="fas fa-arrow-down" style="color: #00b894; margin-bottom: 5px;"></i>
+                    <p style="font-size: 0.8rem;">Încasări</p>
+                    <h4>+ 2,500</h4>
+                </div>
+                <div class="action-card" style="flex: 1; text-align: center; padding: 15px;">
+                    <i class="fas fa-arrow-up" style="color: #d63031; margin-bottom: 5px;"></i>
+                    <p style="font-size: 0.8rem;">Cheltuieli</p>
+                    <h4>- 850</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column animate-up delay-1">
+            <div class="action-card">
+                <h3><i class="fas fa-paper-plane" style="color: var(--primary); margin-right: 10px;"></i>Transfer Rapid</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Trimite bani instant către orice cont.</p>
+
+                <div class="input-group">
+                    <label>IBAN Destinatar</label>
+                    <input type="text" id="destinatar-iban" placeholder="RO99 BANC XXXX...">
+                </div>
+
+                <div class="input-group">
+                    <label>Sumă (RON)</label>
+                    <input type="number" id="suma-transfer" placeholder="0.00">
+                </div>
+
+                <button class="btn-login" onclick="faTransfer()">Trimite Bani</button>
+            </div>
+
+            <div class="action-card" style="margin-top: 20px;">
+                <h3>Ultima Tranzacție</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div>
+                        <p style="font-weight: 600;">Netflix Subscription</p>
+                        <p style="font-size: 0.8rem; color: #999;">Azi, 10:30</p>
+                    </div>
+                    <div style="color: #d63031; font-weight: bold;">- 60.00 RON</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Verificari standard
+        window.onload = function() {
+            if(localStorage.getItem('user_role') !== 'client') {
+                window.location.href = 'login.html';
+            }
+            incarcaDateUtilizator();
+        };
+    </script>
+</body>
+</html>
