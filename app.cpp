@@ -21,10 +21,10 @@ int main()
             driver = sql::mysql::get_mysql_driver_instance();
             
             // 2. Conectează-te la baza de date (schimbă cu datele tale)
-            con = driver->connect("tcp://127.0.0.1:3306", "user", "parola");
+            con = driver->connect("tcp://127.0.0.1:3306", "admin", "admin");
             
             // 3. Selectează baza de date specifică
-            con->setSchema("nume_baza_de_date");
+            con->setSchema("sistem_bancar");
 
             sql::Statement *stmt;
             sql::ResultSet *res;
@@ -43,9 +43,10 @@ int main()
             delete stmt;
             delete con;
 
-        } catch (sql::SQLException &e) {
-            return crow::response(500, "Eroare la baza de date");
-        }
+        }  catch (sql::SQLException &e) {
+    // Asta va afișa eroarea reală (în engleză) primită de la MySQL
+    return crow::response(500, std::string("Eroare MySQL Detaliata: ") + e.what());
+}
 
         return crow::response(result);
     });
