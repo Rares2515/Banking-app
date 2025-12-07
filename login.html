@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>PURPL3 - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+</div>
+    <nav>
+        <div class="logo">PURPL3</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-container" style="justify-content: center;">
+        <div class="login-card">
+            <h2>Bine ai revenit!</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Accesează contul tău</p>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="nume@email.com">
+            </div>
+
+            <div class="input-group">
+                <label>Parolă</label>
+                <input type="password" id="login-pass" placeholder="••••••••">
+            </div>
+
+            <button class="btn-login" onclick="login()">Autentificare</button>
+
+            <div class="login-footer">
+                <p>Nu ai cont? <a href="register.html">Register</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>PURPL3 - Înregistrare</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+</div>
+    <nav>
+        <div class="logo">PURPL3</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-container" style="justify-content: center;">
+        <div class="login-card" style="max-width: 500px;"> <h2>Creează cont nou</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Durează doar un minut</p>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>Nume</label>
+                    <input type="text" id="reg-nume" placeholder="Popescu">
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Prenume</label>
+                    <input type="text" id="reg-prenume" placeholder="Andrei">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="nume@email.com">
+            </div>
+
+            <div class="input-group">
+                <label>Parolă</label>
+                <input type="password" id="reg-pass" placeholder="••••••••">
+            </div>
+
+            <div class="input-group">
+                <label>Repetă Parola</label>
+                <input type="password" id="reg-pass2" placeholder="••••••••">
+            </div>
+
+            <button class="btn-login" onclick="register()">Înregistrează-te</button>
+
+            <div class="login-footer">
+                <p>Ai deja cont? <a href="login.html">Mergi la Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
