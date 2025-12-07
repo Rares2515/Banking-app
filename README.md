@@ -117,6 +117,6 @@ CORS Error: Dacă deschizi fișierul HTML direct din folder (file://), nu va mer
 ---
 <div align="center">
 
-**With love de la developer Rares Chiculita** 💜
+**With love de la developeri: Chiculiță Rareș-Andrei & Toderașc Octavian-Gabriel** 💜
 
 </div>
