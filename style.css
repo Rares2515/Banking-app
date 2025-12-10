@@ -597,3 +597,192 @@ nav a:hover {
     color: white;
     margin-top: 50px;
 }
+
+/* === FOOTER REFINIT === */
+
+footer {
+    position: relative;
+    margin-top: 0;
+    background: linear-gradient(135deg, #f7f9ff 0%, #c5f4f6 40%, #56e0dc 100%);
+    color: #1f2933;
+}
+
+
+/* valul de sus – scapam de negrul acela puternic */
+.footer-wave {
+    height: 90px;
+    overflow: hidden;
+}
+
+.footer-wave svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.footer-wave .shape-fill {
+    fill: rgba(255,255,255,0); /* transparent sus */
+}
+
+
+/* layout mai compact și mai ordonat */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 8% 25px;
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* prima coloană (descrierea) */
+.footer-col:first-child p {
+    color: #3f4d5a;
+    font-size: 0.95rem;
+}
+
+/* titlurile coloană */
+.footer-col h4 {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    color: #5e60f5;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 6px;
+}
+
+/* link-uri footer – mai închise, mai vizibile */
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: #1f2933;
+    text-decoration: none;
+    font-size: 0.92rem;
+    opacity: 0.8;
+    transition: 0.25s;
+}
+
+.footer-col ul li a:hover {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* iconițele social media – discuri albe cu shadow */
+.social-links {
+    display: flex;
+    gap: 12px;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #00b894;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    text-decoration: none;
+    transition: transform 0.25s, background 0.25s, color 0.25s;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: #6c5ce7;
+    color: #ffffff;
+}
+
+/* banda de jos cu drepturi de autor */
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.06);
+    text-align: center;
+    padding: 16px 8%;
+    font-size: 0.8rem;
+    color: #5f6c7b;
+}
+
+/* responsive – pe mobil punem coloanele una sub alta */
+@media (max-width: 900px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+.social-links a i {
+    font-size: 18px;
+    color: #6c5ce7;  /* mov */
+}
+
+.cta-section {
+    text-align: center;
+    padding: 5rem 1rem 4rem;
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #eaf4ff 25%,
+        #d7f4f6 60%,
+        #f7f9ff 100%     /* aceeași culoare ca începutul footer-ului */
+    );
+    color: #2d3436;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* titlul CTA */
+.cta-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 14px;
+}
+
+/* subtitlu */
+.cta-section p {
+    font-size: 1rem;
+    color: #636e72;
+    opacity: 1;
+    margin-bottom: 24px;
+}
+
+/* buton CTA super modern */
+.cta-section .btn-main {
+    background: white !important;
+    color: var(--primary) !important;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(108, 92, 231, .25);
+    transition: .3s;
+}
+
+.cta-section .btn-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(108, 92, 231, .35);
+}
+
+.cta-section {
+    margin-bottom: 20px;
+}
